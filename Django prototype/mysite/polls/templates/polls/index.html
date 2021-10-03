@@ -1,0 +1,38 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}">
+{% if latest_question_list %}
+<ul>
+    {% for question in latest_question_list %}
+    <li><a href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available</p>
+{% endif %}
+
+{% if perms.polls.add_question %}
+
+<h1>Add a question</h1>
+<form action="add_question" method="POST">
+    {% csrf_token %}
+    <label for="question"></label>
+    <textarea name="question" id="" cols="30" rows="10"></textarea>
+    <fieldset name="choices">
+        <legend>Choices:</legend>
+        <label for="choice1"></label>
+        <input type="text" name="choice1" id="">
+        <label for="choice2"></label>
+        <input type="text" name="choice2" id="">
+        <label for="choice3"></label>
+        <input type="text" name="choice3" id="">
+    </fieldset>
+    <input type="submit" value="Submit question">
+</form>
+
+{% endif %}
+
+<form action="{% url 'home:logout' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Log out">
+</form>
+

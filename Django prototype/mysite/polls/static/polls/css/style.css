@@ -1,0 +1,14 @@
+li a {
+  color: green;
+  text-decoration: none;
+}
+
+fieldset {
+  width: 20%;
+  margin-bottom: 10px;
+}
+
+fieldset input {
+  display: block;
+  margin-top: 10px;
+}

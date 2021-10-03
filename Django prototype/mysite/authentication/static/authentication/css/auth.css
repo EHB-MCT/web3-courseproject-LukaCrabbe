@@ -1,0 +1,13 @@
+a {
+  text-decoration: none;
+}
+
+label {
+  margin-right: 5px;
+}
+
+input[type="submit"] {
+  padding: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
