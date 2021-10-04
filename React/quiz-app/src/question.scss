@@ -1,0 +1,27 @@
+.question{
+    background-color: antiquewhite;
+    margin: 0 auto;
+    width:30%;
+    padding:10px;
+    form{
+        h1{
+            text-align: center;
+        }
+        input{
+            margin-left:4em;
+        }
+        input[type="radio"]{
+            margin-bottom:1.5em;
+        }
+        label{
+            margin-left:0.5em;
+            font-size:larger;
+        }
+    }
+}
+
+.answer{
+    height:500px;
+}
+
+
