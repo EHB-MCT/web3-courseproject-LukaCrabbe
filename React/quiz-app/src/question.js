@@ -2,7 +2,6 @@ import './question.scss';
 import React from 'react'; 
 import Timer from './timer.js';
 
-
 class Question extends React.Component{
 
     constructor(props) {
@@ -12,20 +11,23 @@ class Question extends React.Component{
             choices:this.props.choices,
             correctAnswer:this.props.correctAnswer,
             submittedAnswer:false,
-            value:""
+            answer:false,
+            value:"",
         };
       }
-
 
      handleSubmit(e){
          e.preventDefault();
          this.setState({
              show:!this.state.show
+         });        
+         this.setState({
+            submittedAnswer:true
          });
          if(this.state.value===this.state.choices[this.state.correctAnswer]){
-             this.setState({
-                 submittedAnswer:true
-             });
+            this.setState({
+                answer:true
+            });
          }
      }
 
@@ -52,13 +54,13 @@ class Question extends React.Component{
                             </label>
                         ) 
                     })}
-                    <Timer time={this.props.time}/>
+                    <Timer time={this.props.time}/>                 
                     <input type="submit" value="Submit"></input>
                 </form> 
             </div>
             {this.state.show &&
             <div className="answer">
-                {this.state.submittedAnswer ?
+                {this.state.answer ?
                 <h1> Correct !</h1>:<h1>False</h1>
                 }              
             </div>
