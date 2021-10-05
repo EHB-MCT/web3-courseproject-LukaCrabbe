@@ -5,7 +5,9 @@ import Question from './question.js';
 function App() {
   return (
     <div>
-      <Question/>
+      <Question question="What is the capital of Belgium?" choices={["brussels","paris","london"]}
+        correctAnswer={0} time={40}
+      />
     </div>
   );
 }

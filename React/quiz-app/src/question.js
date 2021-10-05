@@ -1,48 +1,72 @@
 import './question.scss';
+import React from 'react'; 
+import Timer from './timer.js';
 
-function Question(props) {
 
-    let answer=false;
-    let show=false;
+class Question extends React.Component{
 
-    function handleSubmit(e){
-        e.preventDefault();
-        show=!show;
-        console.log(e.target.value);
-        if(e.value==="brussels"){
-            answer=true;
-        }
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            show:false,
+            choices:this.props.choices,
+            correctAnswer:this.props.correctAnswer,
+            submittedAnswer:false,
+            value:""
+        };
+      }
 
-    return ( 
-        <div>
+
+     handleSubmit(e){
+         e.preventDefault();
+         this.setState({
+             show:!this.state.show
+         });
+         if(this.state.value===this.state.choices[this.state.correctAnswer]){
+             this.setState({
+                 submittedAnswer:true
+             });
+         }
+     }
+
+     handleChange(e){
+         this.setState({
+             value:e.target.value
+         });
+     }
+
+    render(){
+        return(
+            <div>
             <div className="question">
-                <form onSubmit={handleSubmit}>
-                    <h1>What is the capital of Belgium?</h1>
-                    <input type="radio" id="brussels" name="capital" value="brussels"></input>
-                    <label htmlFor="brussels">Brussels</label><br></br>
-                    <input type="radio" id="paris" name="capital" value="paris"></input>
-                    <label htmlFor="paris">Paris</label><br></br>
-                    <input type="radio" id="london" name="capital" value="london"></input>
-                    <label htmlFor="london">London</label><br></br>
+                <form onSubmit={(e)=>this.handleSubmit(e)}>
+                    <h1>{this.props.question}</h1>
+                    {this.state.choices.map((choice)=>{
+                        return(                            
+                            <label htmlFor={choice} key={`${choice}Label`}>
+                                <input type="radio" id={choice} name="choices" value={choice} key={choice}
+                                onChange={(e)=>this.handleChange(e)}
+                                >
+                                </input>
+                                {choice}                                
+                            </label>
+                        ) 
+                    })}
+                    <Timer time={this.props.time}/>
                     <input type="submit" value="Submit"></input>
                 </form> 
             </div>
-            {show &&
+            {this.state.show &&
             <div className="answer">
-                {answer &&
-                <h1> Correct !</h1>
-                }
-                {answer === false &&
-                <h1>False</h1>
-                }                
+                {this.state.submittedAnswer ?
+                <h1> Correct !</h1>:<h1>False</h1>
+                }              
             </div>
             }
         </div>
-        
-
-
-    );
+        );
+    } 
+           
 }
 
 export default Question
