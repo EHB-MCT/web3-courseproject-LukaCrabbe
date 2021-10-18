@@ -1,18 +1,50 @@
-import {Link,Redirect} from 'react-router-dom';
+import React from 'react';
+import {Link,Redirect,useLocation,useHistory} from 'react-router-dom';
 
-function Nickname(props){
+class Nickname extends React.Component{
 
-    return(
-    <div>
-        {console.log(this.props.location.state.referrer)}
-        <h1>Choose a nickname</h1>
-        <form onSubmit={<Redirect/>}>
-            <input type="text" placeholder="Nickname"></input>
-            <input type="submit" value="Submit"></input>
-        </form>
-        <button>Go Back</button>
-    </div>
-    );
+    constructor(props){
+        super(props);
+        this.state={
+            submitted:false,
+            nickname:""
+        };
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        console.log(e.target);
+        this.setState({
+            submitted:true,
+        });
+        sessionStorage.setItem("nickname",this.state.nickname);
+    }
+
+    handleChange(e){
+        console.log(e.target.value);
+        this.setState({
+            nickname:e.target.value
+        });
+    }
+
+    render(){
+        return(
+            <div>
+                <h1>Choose a nickname</h1>
+                <form onSubmit={(e)=>this.handleSubmit(e)}>
+                    <input type="text" placeholder="Nickname" onChange={(e)=>this.handleChange(e)}></input>
+                    <input type="submit" value="Submit"></input>
+                </form>
+                {this.state.submitted && 
+                <Redirect to="/join"/>
+                }
+                <button>Go Back</button>
+            </div>
+            );
+    }
+
+
+
 }
 
 export default Nickname;

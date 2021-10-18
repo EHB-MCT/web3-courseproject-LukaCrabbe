@@ -15,9 +15,7 @@ function App() {
   return (
     <Router>
       <div>
-        {/* <Question question="What is the capital of Belgium?" choices={["brussels","paris","london"]}
-        correctAnswer={0} time={40}
-        /> */}
+        
         <Switch>
           <Route path="/host">
             <Host/>
@@ -31,9 +29,14 @@ function App() {
           <Route path="/">
             <Home/>
           </Route>
+          <Route path="/question">
+            
+          </Route>
 
         </Switch>
-      </div>      
+      </div>
+      <Question question="What is the capital of Belgium?" choices={["brussels","paris","london"]}
+            correctAnswer={0} time={40}/>      
     </Router>
   );
 

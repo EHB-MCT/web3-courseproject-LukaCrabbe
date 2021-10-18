@@ -17,12 +17,10 @@ class Question extends React.Component{
       }
 
      handleSubmit(e){
-         e.preventDefault();
+         e.preventDefault();     
          this.setState({
-             show:!this.state.show
-         });        
-         this.setState({
-            submittedAnswer:true
+            show:!this.state.show,
+            submittedAnswer:true,
          });
          if(this.state.value===this.state.choices[this.state.correctAnswer]){
             this.setState({
