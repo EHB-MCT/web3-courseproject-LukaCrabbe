@@ -7,7 +7,6 @@ class Timer extends React.Component{
         super(props);
         this.state={
             time:this.props.time,
-            stop:this.props.stop
         };
     }
 
@@ -22,11 +21,17 @@ class Timer extends React.Component{
         clearInterval(this.timerID);
       }
 
+    componentDidUpdate(){
+        if(this.props.stop){
+            clearInterval(this.timerId);
+        }
+    }
+
       tick(){
           this.setState({
               time:this.state.time-1
           });
-          if(this.state.time<=0 || this.state.stop){
+          if(this.state.time<=0){
               clearInterval(this.timerId);
           }
       }

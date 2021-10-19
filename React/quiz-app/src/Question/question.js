@@ -12,49 +12,47 @@ class Question extends React.Component{
             correctAnswer:this.props.correctAnswer,
             submittedAnswer:false,
             answer:false,
-            value:"",
+            stopTimer:false,
+            disableButton:false
         };
       }
 
-     handleSubmit(e){
-         e.preventDefault();     
-         this.setState({
+      handleState(){
+        this.setState({
             show:!this.state.show,
             submittedAnswer:true,
+            stopTimer:true,
+            disableButton:true
          });
-         if(this.state.value===this.state.choices[this.state.correctAnswer]){
+      }
+
+     handleClick(e){
+         this.handleState();
+         e.target.style.backgroundColor="red";
+         e.target.style.color="black";
+         if(e.target.value===this.state.choices[this.state.correctAnswer]){
+             e.target.style.backgroundColor="green";
             this.setState({
                 answer:true
             });
-         }
-     }
-
-     handleChange(e){
-         this.setState({
-             value:e.target.value
-         });
+         }        
      }
 
     render(){
         return(
             <div>
             <div className="question">
-                <form onSubmit={(e)=>this.handleSubmit(e)}>
                     <h1>{this.props.question}</h1>
                     {this.state.choices.map((choice)=>{
                         return(                            
-                            <label htmlFor={choice} key={`${choice}Label`}>
-                                <input type="radio" id={choice} name="choices" value={choice} key={choice}
-                                onChange={(e)=>this.handleChange(e)}
-                                >
-                                </input>
-                                {choice}                                
-                            </label>
+                            <button id={choice} value={choice} key={choice} 
+                            onClick={(e)=>this.handleClick(e)} disabled={this.state.disableButton}
+                            >
+                            {choice}
+                            </button>
                         ) 
                     })}
-                    <Timer time={this.props.time}/>                 
-                    <input type="submit" value="Submit"></input>
-                </form> 
+                    <Timer time={this.props.time} stop={this.state.stopTimer}/>                 
             </div>
             {this.state.show &&
             <div className="answer">
