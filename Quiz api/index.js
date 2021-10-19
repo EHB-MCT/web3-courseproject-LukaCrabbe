@@ -1,9 +1,10 @@
+require('dotenv').config();
 const express=require('express');
 const {ExpressPeerServer}=require('peer');
 const app=express();
 const {MongoClient}=require('mongodb');
 const PORT=8000;
-const uri = "mongodb+srv://lukacrabbe:KE-f4$ZNP3j8Z_D@cluster0.rglrf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = process.env.MONGOURI;
 const mongoClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const customGenerationFunction = () => (Math.random().toString(36) + '0000000000000000000').substr(2, 16);
 
