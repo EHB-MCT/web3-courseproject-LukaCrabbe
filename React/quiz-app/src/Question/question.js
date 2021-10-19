@@ -1,6 +1,6 @@
 import './question.scss';
 import React from 'react'; 
-import Timer from './timer.js';
+import Timer from '../Timer/timer.js';
 
 class Question extends React.Component{
 

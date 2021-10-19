@@ -1,15 +1,15 @@
 import './App.scss';
-import Question from './question.js';
+import Question from './Question/question.js';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import Host from './host.js';
-import Join from './join.js';
-import Home from './home.js';
-import Nickname from './nickname.js';
+import Host from './Host/host.js';
+import Join from './Join/join.js';
+import Home from './Home/home.js';
+import Nickname from './Nickname/nickname.js';
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
         </Switch>
       </div>
       <Question question="What is the capital of Belgium?" choices={["brussels","paris","london"]}
-            correctAnswer={0} time={40}/>      
+            correctAnswer={0} time={40}/>
     </Router>
   );
 
