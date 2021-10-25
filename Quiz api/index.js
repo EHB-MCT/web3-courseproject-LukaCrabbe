@@ -1,12 +1,10 @@
 require('dotenv').config();
 const express=require('express');
-const {ExpressPeerServer}=require('peer');
 const app=express();
 const {MongoClient}=require('mongodb');
 const PORT=8000;
 const uri = process.env.MONGOURI;
 const mongoClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const customGenerationFunction = () => (Math.random().toString(36) + '0000000000000000000').substr(2, 16);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,7 +41,7 @@ app.post('/lobby',function(req,res){
     res.send(req.body);
 });
 
-const server=app.listen(PORT,()=>{
+app.listen(PORT,()=>{
     mongoClient.connect(err => {
         if (err) {
             throw err;
@@ -53,18 +51,5 @@ const server=app.listen(PORT,()=>{
     });
 });
 
-
-const peerServer = ExpressPeerServer(server, {
-    path: '/myapp',
-    proxied:true,
-    generateClientId: customGenerationFunction,
-  });
-  
-app.use('/peerjs', peerServer);
-
-peerServer.on('connection',(client)=>{
-    console.log(client);
-    console.log("Hello");
-});
 
 

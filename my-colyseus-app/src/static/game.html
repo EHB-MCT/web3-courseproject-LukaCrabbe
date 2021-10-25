@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://unpkg.com/colyseus.js@^0.14.0/dist/colyseus.js"></script>
+</head>
+<body>    
+    <script>
+        var host = window.document.location.host.replace(/:.*/, '');
+        console.log(host);
+  
+        var client = new Colyseus.Client(location.protocol.replace("http", "ws") + "//" + host + (location.port ? ':'+location.port : ''));
+        console.log(client);
+        client.joinOrCreate("my_room").then(room => {
+          console.log("joined succesfully",room);
+          room.onStateChange.once(function(state) {
+              console.log("initial room state:", state);
+          });
+          console.log(room.id);
+  
+          // new room state
+          room.onStateChange(function(state) {
+              // this signal is triggered on each patch
+          });
+  
+          // listen to patches coming from the server
+          room.onMessage("messages", function(message) {
+          });
+  
+        });
+  
+      </script>
+
+</body>
+</html>
